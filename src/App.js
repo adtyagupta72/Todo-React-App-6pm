@@ -5,6 +5,8 @@ var count = 0
 const COMPLETED = "COMPLETED"
 const INCOMPLETED = "INCOMPLETED"
 const ALL = "ALL"
+var countOfTodos = 0
+
 function App() 
 {
   const [editingFlag, setEditingFlag] = useState(-1)
@@ -136,11 +138,11 @@ function App()
   }
 
   return (
-    <div>
-      <h1>Todo Application</h1>
-      <h4>(By Aditya Gupta)</h4>
-
-      <div>
+    <div >
+      <h1 className='heading'>Todo Application</h1>
+      <h4 className='subHeading'>(By Aditya Gupta)</h4>
+      
+      <div className='filterContainer'>
         <label onClick={()=>filterTodo(INCOMPLETED)}>Incomplete</label>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
         <label onClick={()=>filterTodo(COMPLETED)}>Completed</label>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
         <label onClick={()=>filterTodo(ALL)}>All</label>
@@ -148,18 +150,22 @@ function App()
 
       <input type='text' id='input' placeholder='Enter todo here...'/>
       <button onClick={addTodo}>Add Todo</button>
-
       <div>
-        <ul>
-          {todoList.map(iterator => 
+        <ul className='listStyle'>
+          {
+            todoList.map(iterator =>
               {
+                if(todoList[0].id === iterator.id)
+                  countOfTodos = 0
                 switch(filter)
                 {
                   case INCOMPLETED:
                   {
                     if(!iterator.completed)
                     {
-                      return <li key={iterator.id}>                  
+                      countOfTodos +=1
+                      //setCountOfTodos(countOfTodos+1)                      
+                      return <li key={iterator.id} className='listItemStyle'>                  
                               { 
                                 iterator.completed == true ?
                                 <>
@@ -190,7 +196,9 @@ function App()
                     {
                       if(iterator.completed)
                       {
-                        return <li key={iterator.id}>                  
+                        countOfTodos +=1
+                        //setCountOfTodos(countOfTodos+1)
+                        return <li key={iterator.id} className='listItemStyle'>                  
                               { 
                                 iterator.completed == true ?
                                 <>
@@ -219,7 +227,9 @@ function App()
                     }
                   case ALL:
                     {
-                      return <li key={iterator.id}>                  
+                      countOfTodos +=1
+                      //setCountOfTodos(countOfTodos+1)
+                      return <li key={iterator.id} className='listItemStyle'>                  
                               { 
                                 iterator.completed == true ?
                                 <>
@@ -251,7 +261,9 @@ function App()
           }
         </ul>
       </div>
-
+      <div>
+        Count: {countOfTodos}
+      </div>
     </div>
   );
 }
