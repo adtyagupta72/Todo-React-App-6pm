@@ -1,5 +1,7 @@
 import './App.css';
 import { useState } from 'react';
+import TodoListItem from './TodoListItem';
+import MyHeader from './MyHeader';
 
 var count = 0
 const COMPLETED = "COMPLETED"
@@ -139,7 +141,7 @@ function App()
 
   return (
     <div >
-      <h1 className='heading'>Todo Application</h1>
+      <MyHeader/>
       <h4 className='subHeading'>(By Aditya Gupta)</h4>
       
       <div className='filterContainer'>
@@ -165,30 +167,13 @@ function App()
                     {
                       countOfTodos +=1
                       //setCountOfTodos(countOfTodos+1)                      
-                      return <li key={iterator.id} className='listItemStyle'>                  
-                              { 
-                                iterator.completed == true ?
-                                <>
-                                  <input type='checkbox' onChange={()=>completeTodo(iterator.id)} checked/> 
-                                  <s>{iterator.todo}</s>
-                                </> : 
-                                <>
-                                  {editingFlag === iterator.id ? 
-                                  <>
-                                    <input type='checkbox' onChange={()=>completeTodo(iterator.id)}/>
-                                    <input type='text' defaultValue={iterator.todo} id='editingTodo'/>
-                                    <button onClick={()=>deleteTodo(iterator.id)}>Delete</button>
-                                    <button onClick={saveEditedTodo}>Save</button>
-                                  </> :
-                                  <>
-                                    <input type='checkbox' onChange={()=>completeTodo(iterator.id)}/>
-                                    {iterator.todo}
-                                    <button onClick={()=>deleteTodo(iterator.id)}>Delete</button>
-                                    <button onClick={()=>editTodo(iterator.id)}>Edit</button>
-                                  </>}
-                                </>
-                              }                  
-                              </li>
+                      return <TodoListItem 
+                                iterator={iterator}
+                                completeTodo={completeTodo}
+                                editingFlag={editingFlag}
+                                deleteTodo={deleteTodo}
+                                saveEditedTodo={saveEditedTodo}
+                                editTodo={editTodo}/>
                     }
                     break;
                   }
@@ -198,30 +183,13 @@ function App()
                       {
                         countOfTodos +=1
                         //setCountOfTodos(countOfTodos+1)
-                        return <li key={iterator.id} className='listItemStyle'>                  
-                              { 
-                                iterator.completed == true ?
-                                <>
-                                  <input type='checkbox' onChange={()=>completeTodo(iterator.id)} checked/> 
-                                  <s>{iterator.todo}</s>
-                                </> : 
-                                <>
-                                  {editingFlag === iterator.id ? 
-                                  <>
-                                    <input type='checkbox' onChange={()=>completeTodo(iterator.id)}/>
-                                    <input type='text' defaultValue={iterator.todo} id='editingTodo'/>
-                                    <button onClick={()=>deleteTodo(iterator.id)}>Delete</button>
-                                    <button onClick={saveEditedTodo}>Save</button>
-                                  </> :
-                                  <>
-                                    <input type='checkbox' onChange={()=>completeTodo(iterator.id)}/>
-                                    {iterator.todo}
-                                    <button onClick={()=>deleteTodo(iterator.id)}>Delete</button>
-                                    <button onClick={()=>editTodo(iterator.id)}>Edit</button>
-                                  </>}
-                                </>
-                              }                  
-                              </li>
+                        return <TodoListItem
+                                  iterator={iterator}
+                                  completeTodo={completeTodo}
+                                  editingFlag={editingFlag}
+                                  deleteTodo={deleteTodo}
+                                  saveEditedTodo={saveEditedTodo}
+                                  editTodo={editTodo}/>
                       }
                       break;
                     }
@@ -229,30 +197,13 @@ function App()
                     {
                       countOfTodos +=1
                       //setCountOfTodos(countOfTodos+1)
-                      return <li key={iterator.id} className='listItemStyle'>                  
-                              { 
-                                iterator.completed == true ?
-                                <>
-                                  <input type='checkbox' onChange={()=>completeTodo(iterator.id)} checked/> 
-                                  <s>{iterator.todo}</s>
-                                </> : 
-                                <>
-                                  {editingFlag === iterator.id ? 
-                                  <>
-                                    <input type='checkbox' onChange={()=>completeTodo(iterator.id)}/>
-                                    <input type='text' defaultValue={iterator.todo} id='editingTodo'/>
-                                    <button onClick={()=>deleteTodo(iterator.id)}>Delete</button>
-                                    <button onClick={saveEditedTodo}>Save</button>
-                                  </> :
-                                  <>
-                                    <input type='checkbox' onChange={()=>completeTodo(iterator.id)}/>
-                                    {iterator.todo}
-                                    <button onClick={()=>deleteTodo(iterator.id)}>Delete</button>
-                                    <button onClick={()=>editTodo(iterator.id)}>Edit</button>
-                                  </>}
-                                </>
-                              }                  
-                              </li>
+                      return <TodoListItem
+                                  iterator={iterator}
+                                  completeTodo={completeTodo}
+                                  editingFlag={editingFlag}
+                                  deleteTodo={deleteTodo}
+                                  saveEditedTodo={saveEditedTodo}
+                                  editTodo={editTodo}/>
                       break;
                     }
                   default:
