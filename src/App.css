@@ -4,7 +4,17 @@ body
   background-repeat: no-repeat;
 }
 
-
+.filter-label-selected
+{
+  font-weight: bold;
+  background-color: #c1cf19;
+  color: #FFFFFF;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-radius: 20px;
+}
 
 .subHeading
 {
@@ -15,7 +25,6 @@ body
 .filterContainer
 {
   text-align: center;
-  font-weight: bold;
   font-size: large;
 }
 

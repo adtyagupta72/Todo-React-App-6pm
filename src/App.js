@@ -2,6 +2,8 @@ import './App.css';
 import { useState } from 'react';
 import TodoListItem from './TodoListItem';
 import MyHeader from './MyHeader';
+import { Button, Modal } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 var count = 0
 const COMPLETED = "COMPLETED"
@@ -13,6 +15,7 @@ function App()
 {
   const [editingFlag, setEditingFlag] = useState(-1)
   const [filter, setFilter] = useState(INCOMPLETED)
+  const [modalShow, setModalShow] = useState(false)
   const [todoList, setTodoList] = useState([
     {
       id: count++,
@@ -139,16 +142,53 @@ function App()
     }
   }
 
+  const setFilterUI = () =>
+  {
+    switch (filter) 
+    {
+      case INCOMPLETED:
+        return  <div className='filterContainer'>
+                  <label className='filter-label-selected' onClick={()=>filterTodo(INCOMPLETED)}>Incomplete</label>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                  <label onClick={()=>filterTodo(COMPLETED)}>Completed</label>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                  <label onClick={()=>filterTodo(ALL)}>All</label>
+                </div>
+        break;
+      case COMPLETED:
+        return  <div className='filterContainer'>
+                  <label onClick={()=>filterTodo(INCOMPLETED)}>Incomplete</label>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                  <label className='filter-label-selected' onClick={()=>filterTodo(COMPLETED)}>Completed</label>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                  <label onClick={()=>filterTodo(ALL)}>All</label>
+                </div>
+        break;
+      case ALL:
+        return  <div className='filterContainer'>
+                  <label onClick={()=>filterTodo(INCOMPLETED)}>Incomplete</label>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                  <label onClick={()=>filterTodo(COMPLETED)}>Completed</label>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+                  <label className='filter-label-selected' onClick={()=>filterTodo(ALL)}>All</label>
+                </div>
+        break;
+      default:
+        break;
+    }
+  }
+
   return (
     <div >
       <MyHeader/>
       <h4 className='subHeading'>(By Aditya Gupta)</h4>
       
-      <div className='filterContainer'>
-        <label onClick={()=>filterTodo(INCOMPLETED)}>Incomplete</label>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-        <label onClick={()=>filterTodo(COMPLETED)}>Completed</label>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
-        <label onClick={()=>filterTodo(ALL)}>All</label>
-      </div>
+      {setFilterUI()}
+
+      <>
+        <Button variant="primary" onClick={() => setModalShow(true)}>
+          Launch vertically centered modal
+        </Button>
+
+        <MyVerticallyCenteredModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+        />
+      </>
 
       <input type='text' id='input' placeholder='Enter todo here...'/>
       <button onClick={addTodo}>Add Todo</button>
@@ -216,6 +256,37 @@ function App()
         Count: {countOfTodos}
       </div>
     </div>
+  );
+}
+
+function MyVerticallyCenteredModal(props) 
+{
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Add New To-do
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        {/* <h4>Centered Modal</h4> */}
+        {/* <p>
+          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
+          consectetur ac, vestibulum at eros.
+        </p> */}
+        <textarea rows={2} cols={50} placeholder='Add to-do here'/>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={props.onHide}>Add</Button>
+        <Button onClick={props.onHide}>Close</Button>
+      </Modal.Footer>
+    </Modal>
   );
 }
 
